@@ -23,15 +23,20 @@ body{
 }
 
 .app{
-  width:90vw;
+  width:90%;
   max-width:var(--max-width);
-  height:85vh;
+  height:85%;
   position:relative;
+  margin: auto;
+  padding: env(safe-area-inset-top,20px) 10px 20px 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .card{
   position:absolute;
-  inset:0;
+  inset:10px;
   background:#fff;
   border-radius:var(--card-radius);
   box-shadow:0 12px 30px rgba(0,0,0,0.18);
@@ -41,6 +46,7 @@ body{
   touch-action:none;
   transition: transform 0.32s cubic-bezier(.22,.9,.28,1), opacity 0.25s linear;
 }
+
 .card:nth-last-child(2){ transform: scale(.96) translateY(10px); }
 .card:nth-last-child(3){ transform: scale(.92) translateY(20px); }
 
@@ -65,7 +71,7 @@ body{
   width:100px;
   height:100px;
   border-radius:50%;
-  background:#ffdb5b; /* สีโลโก้ */
+  background:#ffdb5b;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -95,7 +101,7 @@ body{
   color:#333;
 }
 
-/* responsive สำหรับจอเล็ก เช่น iPhone 13 mini */
+/* Responsive สำหรับจอเล็ก เช่น iPhone 13 mini */
 @media (max-width: 400px) {
   .logo-bubble {
     width: 80px;
@@ -157,36 +163,77 @@ body{
 </div>
 
 <script>
-// Simple swipe animation for cards
+// Swipe animation สำหรับ desktop & mobile (เวอร์ชันเดิม)
 const app = document.getElementById('app');
+
 function getTopCard(){ return app.querySelectorAll('.card')[app.querySelectorAll('.card').length-1]; }
+
 function restack(){
   const cards = app.querySelectorAll('.card');
   cards.forEach((c,i)=>{
-    if(i===cards.length-1){ c.style.transform='translate(0,0) scale(1)'; }
-    else{ const idx=cards.length-1-i; c.style.transform=`scale(${1-idx*0.04}) translateY(${idx*8}px)`; }
+    if(i===cards.length-1){
+      c.style.transition='transform 0.32s cubic-bezier(.22,.9,.28,1)';
+      c.style.transform='translate(0,0) scale(1)';
+    } else {
+      const idx=cards.length-1-i;
+      c.style.transition='transform 0.32s ease-out';
+      c.style.transform=`scale(${1-idx*0.04}) translateY(${idx*8}px)`;
+    }
   });
 }
+
 function bindTopCard(card){
   if(!card) return;
   let pointerId=null,startX=0,startY=0,startTime=0;
-  function onDown(e){ pointerId=e.pointerId; card.setPointerCapture(pointerId); startX=e.clientX; startY=e.clientY; startTime=performance.now(); card.style.transition='none'; }
-  function onMove(e){ if(pointerId===null||e.pointerId!==pointerId) return; const dx=e.clientX-startX; const dy=e.clientY-startY; const rot=dx/14; card.style.transform=`translate(${dx}px,${dy}px) rotate(${rot}deg)`; }
+
+  function onDown(e){
+    pointerId=e.pointerId;
+    card.setPointerCapture(pointerId);
+    startX=e.clientX;
+    startY=e.clientY;
+    startTime=performance.now();
+    card.style.transition='none';
+  }
+
+  function onMove(e){
+    if(pointerId===null||e.pointerId!==pointerId) return;
+    const dx=e.clientX-startX;
+    const dy=e.clientY-startY;
+    const rot=dx/14;
+    card.style.transform=`translate(${dx}px,${dy}px) rotate(${rot}deg)`;
+  }
+
   function onUp(e){
-    if(pointerId===null||e.pointerId!==pointerId) return; card.releasePointerCapture(pointerId); pointerId=null;
-    const dx=e.clientX-startX; const dt=performance.now()-startTime; const vx=dx/dt;
-    const threshold=110; const velocityThreshold=0.5;
-    card.style.transition='transform 0.32s cubic-bezier(.22,.9,.28,1), opacity .2s linear';
+    if(pointerId===null||e.pointerId!==pointerId) return;
+    card.releasePointerCapture(pointerId);
+    pointerId=null;
+    const dx=e.clientX-startX;
+    const dt=performance.now()-startTime;
+    const vx=dx/dt;
+    const threshold=110;
+    const velocityThreshold=0.5;
+
     if(Math.abs(dx)>threshold || Math.abs(vx)>velocityThreshold){
       const dir=dx>0?1:-1;
-      card.style.transform=`translateX(${dir*(window.innerWidth+400)}px) rotate(${dir*30}deg)`; card.style.opacity='0';
-      setTimeout(()=>{ card.remove(); restack(); bindTopCard(getTopCard()); },320);
-    } else{ card.style.transform='translate(0px,0px) rotate(0deg)'; }
+      card.style.transition='transform 0.32s ease-in, opacity 0.25s linear';
+      card.style.transform=`translateX(${dir*(window.innerWidth+400)}px) rotate(${dir*30}deg)`;
+      card.style.opacity='0';
+      setTimeout(()=>{
+        card.remove();
+        restack();
+        bindTopCard(getTopCard());
+      },320);
+    } else {
+      card.style.transition='transform 0.32s cubic-bezier(.22,.9,.28,1)';
+      card.style.transform='translate(0px,0px) rotate(0deg)';
+    }
   }
+
   card.addEventListener('pointerdown',onDown);
   card.addEventListener('pointermove',onMove);
   card.addEventListener('pointerup',onUp);
 }
+
 restack();
 bindTopCard(getTopCard());
 window.addEventListener('resize',restack);
