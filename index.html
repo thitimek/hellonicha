@@ -21,12 +21,14 @@ body{
   align-items:center;
   padding:20px;
 }
+
 .app{
   width:90vw;
   max-width:var(--max-width);
   height:85vh;
   position:relative;
 }
+
 .card{
   position:absolute;
   inset:0;
@@ -41,11 +43,13 @@ body{
 }
 .card:nth-last-child(2){ transform: scale(.96) translateY(10px); }
 .card:nth-last-child(3){ transform: scale(.92) translateY(20px); }
+
 .card-img{
   width:100%;
   height:62%;
   object-fit:cover;
 }
+
 .card-content{
   padding:16px;
   flex:1;
@@ -53,13 +57,15 @@ body{
   flex-direction:column;
   gap:8px;
 }
+
 .name-age{ font-weight:700; font-size:20px; color:#111 }
 .bio{ font-size:14px; color:#333; line-height:1.3 }
+
 .logo-bubble{
   width:100px;
   height:100px;
   border-radius:50%;
-  background:var(--bumble-yellow);
+  background:#ffdb5b; /* สีโลโก้ */
   display:flex;
   justify-content:center;
   align-items:center;
@@ -70,18 +76,50 @@ body{
   box-shadow:0 6px 12px rgba(0,0,0,0.12);
 }
 .logo-bubble img{ width:70px; }
+
 .welcome-text{
   margin-top:140px;
   text-align:center;
+  padding: 0 20px;
 }
-.welcome-title{ font-weight:700; font-size:20px; margin-bottom:8px; }
-.welcome-sub{ font-size:14px; line-height:1.35; white-space:pre-line; }
+.welcome-title{
+  font-weight:700;
+  font-size:22px;
+  line-height:1.5;
+  margin-bottom:12px;
+  color: #111;
+}
+.welcome-sub{
+  font-size:15px;
+  line-height:1.6;
+  color:#333;
+}
+
+/* responsive สำหรับจอเล็ก เช่น iPhone 13 mini */
+@media (max-width: 400px) {
+  .logo-bubble {
+    width: 80px;
+    height: 80px;
+  }
+  .logo-bubble img {
+    width: 56px;
+  }
+  .welcome-title {
+    font-size: 18px;
+  }
+  .welcome-sub {
+    font-size: 14px;
+  }
+  .welcome-text {
+    margin-top: 110px;
+  }
+}
 </style>
 </head>
 <body>
 <div class="app" id="app">
 
-  <!-- Card 3: Fan (bottom) -->
+  <!-- Card 3: Fan -->
   <div class="card">
     <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/nichaprofile.jpg" alt="Nicha">
     <div class="card-content">
@@ -90,7 +128,7 @@ body{
     </div>
   </div>
 
-  <!-- Card 2: You (middle) -->
+  <!-- Card 2: You -->
   <div class="card">
     <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/thitiprofile.jpg" alt="Thiti">
     <div class="card-content">
@@ -99,31 +137,28 @@ body{
     </div>
   </div>
 
-<!-- Card 1: Welcome (top) -->
-<div class="card" style="background:#fffbee;">
-  <div class="logo-bubble" style="background:#ffdb5b;">
-    <img src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/bumblelogo.png" alt="Bumble Logo">
-  </div>
-  <div class="card-content welcome-text">
-    <div class="welcome-title">
-      WELCOME TO BUMBLE 💛<br>
-      สวัสดีครับ คุณณิชา<br>
-      จำได้มั้ยครับเราเจอกันที่ไหน?
+  <!-- Card 1: Welcome -->
+  <div class="card" style="background:#fffbee;">
+    <div class="logo-bubble">
+      <img src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/bumblelogo.png" alt="Bumble Logo">
     </div>
-    <div class="welcome-sub">
-      เป็นเวลาหนึ่งปีแล้วนะที่ได้ใช้เวลาร่วมกันมา ดีจังเลยนะที่ได้อยู่ด้วยกัน
+    <div class="card-content welcome-text">
+      <div class="welcome-title">
+        WELCOME TO BUMBLE 💛<br>
+        สวัสดีครับ คุณณิชา<br>
+        จำได้มั้ยครับเราเจอกันที่ไหน?
+      </div>
+      <div class="welcome-sub">
+        เป็นเวลาหนึ่งปีแล้วนะที่ได้ใช้เวลาร่วมกันมา ดีจังเลยนะที่ได้อยู่ด้วยกัน
+      </div>
     </div>
   </div>
-</div>
-
-
 
 </div>
 
 <script>
-// Simple swipe animation for cards (stacked)
+// Simple swipe animation for cards
 const app = document.getElementById('app');
-
 function getTopCard(){ return app.querySelectorAll('.card')[app.querySelectorAll('.card').length-1]; }
 function restack(){
   const cards = app.querySelectorAll('.card');
@@ -132,11 +167,9 @@ function restack(){
     else{ const idx=cards.length-1-i; c.style.transform=`scale(${1-idx*0.04}) translateY(${idx*8}px)`; }
   });
 }
-
 function bindTopCard(card){
   if(!card) return;
   let pointerId=null,startX=0,startY=0,startTime=0;
-
   function onDown(e){ pointerId=e.pointerId; card.setPointerCapture(pointerId); startX=e.clientX; startY=e.clientY; startTime=performance.now(); card.style.transition='none'; }
   function onMove(e){ if(pointerId===null||e.pointerId!==pointerId) return; const dx=e.clientX-startX; const dy=e.clientY-startY; const rot=dx/14; card.style.transform=`translate(${dx}px,${dy}px) rotate(${rot}deg)`; }
   function onUp(e){
@@ -150,16 +183,13 @@ function bindTopCard(card){
       setTimeout(()=>{ card.remove(); restack(); bindTopCard(getTopCard()); },320);
     } else{ card.style.transform='translate(0px,0px) rotate(0deg)'; }
   }
-
   card.addEventListener('pointerdown',onDown);
   card.addEventListener('pointermove',onMove);
   card.addEventListener('pointerup',onUp);
 }
-
 restack();
 bindTopCard(getTopCard());
 window.addEventListener('resize',restack);
 </script>
 </body>
 </html>
-
