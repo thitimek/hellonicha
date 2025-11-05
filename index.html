@@ -132,64 +132,84 @@ body{
   .card{ inset:8px; }
 }
 
-/* MODIFIED: Specific tweak for small screens (like iPhone 13 mini) */
-@media (max-width: 375px) {
-    /* 1. Increase vertical padding of .app container (especially bottom) to push the card away from the edges */
-    .app {
-        height: 84vh; /* Slightly reduced height to accommodate more padding */
-        padding: env(safe-area-inset-top, 30px) 10px 40px 10px; /* Increased top/bottom padding, especially bottom (40px) for Chrome's toolbars */
-    }
-
-    /* 2. Reduce the overall height of the card for more top/bottom space */
-    .card {
-        /* Keep original inset but override height calculation to be shorter */
-        height: calc(100% - 50px); /* Shorten card height further (was 100% - 30px in previous attempt) */
-        top: 25px; /* Push the card down from the top edge of .app container */
-        bottom: 25px; /* Reduce space from the bottom edge of .app container (combined with .app padding, this creates the desired gap) */
-        left: 10px; 
-        right: 10px;
-        inset: unset; /* Remove the original 'inset: 10px' to allow top/bottom/left/right to work independently */
-    }
-
-    /* 3. Adjust image height to make the text area more compact */
-    .card-img {
-        height: 52%; /* Reduced image height further (was 55% in previous attempt) */
-    }
-
-    /* 4. Adjust content padding/font for compactness */
-    .card-content {
-        padding: 10px; /* Reduced padding from 12px to 10px */
-        gap: 5px; /* Reduced gap further */
-    }
-
-    .h-title {
-        font-size: 18px; /* Slightly smaller font */
-    }
-    .h-sub {
-        font-size: 13px; /* Slightly smaller font */
-    }
-
-    /* 5. Adjust logo bubble position for the first card to align with the shorter card height */
-    .card[data-id="1"] .logo-bubble {
-        top: 15px;
-        width: 80px;
-        height: 80px;
-    }
-    .card[data-id="1"] .logo-bubble img {
-        width: 56px;
-    }
-    .card[data-id="1"] .card-content .h-title {
-        margin-top: 90px; /* Reduced margin-top for title in first card */
-    }
-}
-
-
 /* prevent image selection dragging artifacts */
 .card-img, .logo-bubble img { -webkit-user-drag: none; user-drag: none; }
 </style>
 </head>
 <body>
   <div class="app" id="app">
+
+    <div class="card" data-id="22">
+      <img class="card-img" src="" alt="Final Message">
+      <div class="card-content">
+        <div class="h-title">ขอบคุณที่อยู่ด้วยกันนะ 🌻</div>
+        <div class="h-sub">เค้าดีใจมากเลยที่ยังอยู่ด้วยกัน เค้ามีทำตัวไม่น่ารักกับเตงบ้าง งอแงบ้าง (เยอะ) แต่เตงก็ยังน่ารักกับเค้าเสมอเลย ขอบคุณที่อยู่ข้างๆ เค้านะ ไปครับ เราจะเติบโตไปด้วยกัน 🤎</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="21">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/20exhibition.png" alt="ไปดูงานเจ">
+      <div class="card-content">
+        <div class="h-title">4 ตุลาคม 25 - ไปดูงานเจ</div>
+        <div class="h-sub">ไปดูงานของเจกัน แล้วก็กินอจิไซต่อกับพี่ชัยอีฟ</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="20">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/19accident.jpg" alt="เตงหกล้ม">
+      <div class="card-content">
+        <div class="h-title">14 กันยา 25 - เตงหกล้ม</div>
+        <div class="h-sub">ตกใจมาก ยังดีที่ไม่เป็นไร หมอคอนเฟิร์มกระโหลกหนาจริงครับ</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="19">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/18german.png" alt="เรียนเยอรมัน">
+      <div class="card-content">
+        <div class="h-title">20 กรกฎา 25 - เรียนเยอรมัน</div>
+        <div class="h-sub">เทศกาลเรียนหนังสือทุกเสาร์</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="18">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/17donation.jpg" alt="ทำบุญวันเกิดมูลนิธิกระจกเงา">
+      <div class="card-content">
+        <div class="h-title">11 กรกฎา 25 - ทำบุญวันเกิดมูลนิธิกระจกเงา</div>
+        <div class="h-sub">เอาของไปบริจาคกัน ช่วงนั้นน่าจะเป็นเทศกาล เคลียร์ห้อง จัดห้อง ที่เค้าไปหาเตง</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="17">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/16birthdayadvance.png" alt="สุขสันต์วันเกิดล่วงหน้า">
+      <div class="card-content">
+        <div class="h-title">21 มิถุนา 25 - สุขสันต์วันเกิดล่วงหน้า</div>
+        <div class="h-sub">เป็นการเซอร์ไพร์สที่งงตั้งแต่เจ้าของวันเกิด คนต้นคิดและผองเพื่อน โป๊ะสุด</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="16">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/15leoyoyo.jpg" alt="เจอ โยโย่ ลีโอ ไอรดา">
+      <div class="card-content">
+        <div class="h-title">20 มิถุนา 25 - เจอ โยโย่ ลีโอ ไอรดา</div>
+        <div class="h-sub">ไปเที่ยวกับเพื่อนๆ เตงอีกแล้ว ตำนานสวยทะลุสตอรี่ รุ่นพี่เค้าถึงกับทัก 🤣</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="15">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/14pray.jpg" alt="ไหว้พระขอพร">
+      <div class="card-content">
+        <div class="h-title">25 พฤษภา 25 - ไหว้พระขอพร</div>
+        <div class="h-sub">ช่วงเปลี่ยนผ่านงานไปไหว้พระเสริมดวงกัน</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="14">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/13hospital.png" alt="ป่วยบ่อย">
+      <div class="card-content">
+        <div class="h-title">7 พฤษภา 25 - ผ่านม</div>
+        <div class="h-sub">ช่วงนี้เตงป่วยบ่อย ไปรพ. กันเกือบทุกอาทิตย์เลย แต่ปัจจุบันแข็งแรงขึ้นเยอะแล้ว เย้เย้</div>
+      </div>
+    </div>
 
     <div class="card" data-id="13">
       <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/12khaoyai.jpg" alt="Khaoyai">
