@@ -134,52 +134,52 @@ body{
 
 /* MODIFIED: Specific tweak for small screens (like iPhone 13 mini) */
 @media (max-width: 375px) {
-    /* Increase vertical padding on the main container to create more space around the card */
+    /* 1. Increase vertical padding of .app container (especially bottom) to push the card away from the edges */
     .app {
-        /* Adjusted height to prevent card from being too short, balancing with new card size */
-        height: 85vh; /* Reverted to 85vh or slightly adjusted as needed */
-        padding: env(safe-area-inset-top, 25px) 10px 25px 10px; /* Slightly increased padding */
+        height: 84vh; /* Slightly reduced height to accommodate more padding */
+        padding: env(safe-area-inset-top, 30px) 10px 40px 10px; /* Increased top/bottom padding, especially bottom (40px) for Chrome's toolbars */
     }
 
-    /* Reduce the overall height of the card on iPhone 13 mini */
+    /* 2. Reduce the overall height of the card for more top/bottom space */
     .card {
-        height: calc(100% - 30px); /* Make card slightly shorter to create more vertical space */
-        top: 15px; /* Adjust top position to center it or push down slightly */
-        bottom: 15px; /* Adjust bottom position */
-        left: 10px; /* Keep horizontal inset */
-        right: 10px; /* Keep horizontal inset */
+        /* Keep original inset but override height calculation to be shorter */
+        height: calc(100% - 50px); /* Shorten card height further (was 100% - 30px in previous attempt) */
+        top: 25px; /* Push the card down from the top edge of .app container */
+        bottom: 25px; /* Reduce space from the bottom edge of .app container (combined with .app padding, this creates the desired gap) */
+        left: 10px; 
+        right: 10px;
+        inset: unset; /* Remove the original 'inset: 10px' to allow top/bottom/left/right to work independently */
     }
 
-    /* Adjust image height to give more space to content or overall card */
+    /* 3. Adjust image height to make the text area more compact */
     .card-img {
-        height: 55%; /* Reduced image height from 62% to 55% */
+        height: 52%; /* Reduced image height further (was 55% in previous attempt) */
     }
 
-    /* Adjust content padding to make the text area more compact */
+    /* 4. Adjust content padding/font for compactness */
     .card-content {
-        padding: 12px; /* Reduced padding from 16px to 12px */
-        gap: 6px; /* Reduced gap between elements */
+        padding: 10px; /* Reduced padding from 12px to 10px */
+        gap: 5px; /* Reduced gap further */
     }
 
-    /* Adjust font sizes if needed for more compactness */
     .h-title {
-        font-size: 19px;
+        font-size: 18px; /* Slightly smaller font */
     }
     .h-sub {
-        font-size: 13.5px;
+        font-size: 13px; /* Slightly smaller font */
     }
 
-    /* Adjust logo bubble position for the first card if card height changes */
+    /* 5. Adjust logo bubble position for the first card to align with the shorter card height */
     .card[data-id="1"] .logo-bubble {
-        top: 15px; /* Adjust as needed based on new card height */
-        width: 90px;
-        height: 90px;
+        top: 15px;
+        width: 80px;
+        height: 80px;
     }
     .card[data-id="1"] .logo-bubble img {
-        width: 60px;
+        width: 56px;
     }
     .card[data-id="1"] .card-content .h-title {
-        margin-top: 100px; /* Adjust margin-top for title in first card */
+        margin-top: 90px; /* Reduced margin-top for title in first card */
     }
 }
 
