@@ -22,7 +22,7 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px; /* Default padding for large screens */
+  padding:20px;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
@@ -39,10 +39,11 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  /* FIX 1: เพิ่มพื้นหลังสีขาวให้ .app เพื่อปิดขอบเงาด้านล่างเมื่อมีการไถ scroll */
+  
+  /* FIX 1: เพิ่มพื้นหลังสีขาวให้กับ .app เพื่อปิดเงาที่มองเห็นได้เมื่อมีการ Scroll */
   background-color: #ffffff; 
-  border-radius: var(--card-radius); /* ทำให้มีขอบโค้งเหมือนการ์ด */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* เพิ่มเงาเล็กน้อยให้กรอบ app ถ้าจำเป็น */
+  border-radius: var(--card-radius); /* เพื่อให้ขอบของ .app โค้งมนตามขอบของการ์ด */
+  overflow: hidden; /* ป้องกันไม่ให้การ์ดล้นออกไปนอก .app */
 }
 
 /* card base */
@@ -91,6 +92,8 @@ body{
   flex-direction:column;
   gap:8px;
   justify-content:flex-start;
+  /* default: white background */
+  background-color: #fff; 
 }
 
 /* headings */
@@ -128,34 +131,119 @@ body{
 
 /* responsive tweaks */
 @media (max-width:400px){
-  /* FIX 2: ปรับ padding ของ body และ .app ให้เล็กลงเพื่อรองรับ iPhone 13 mini */
-  body {
-    padding: 10px; /* ลด padding รอบนอก */
-  }
+  /* FIX 2: ลดขนาดการแสดงผลโดยรวมลง 15% (เหลือ 0.85) บน iPhone 13 mini */
   .app {
-    width: 100%; /* ให้ app ยืดเต็มความกว้าง (ลบ padding 10px * 2) */
+    width: 100%;
     max-width: none;
-    padding: env(safe-area-inset-top, 10px) 0 10px 0; /* ลบ padding ด้านข้างของ app */
-    height: 90vh; /* ให้สูงขึ้นเล็กน้อย */
-  }
-  .card {
-    /* ทำให้การ์ดมีขอบเหลือ 10px รอบด้านของ .app */
-    inset: 10px; 
+    height: 95vh; /* เพิ่มความสูงเล็กน้อยเพื่อรองรับการ scale */
+    
+    transform: scale(0.85); 
+    transform-origin: center center; /* จัดกึ่งกลางหลังการ scale */
+    
+    /* ปรับ padding ของ body ให้มีพื้นที่รอบนอกมากขึ้น เพื่อรองรับการ scale */
+    padding: 10px; /* ลด padding ด้านบน/ล่างของ .app ลง */
+    
+    /* ลบ width:90% และ max-width:var(--max-width); ที่กำหนดไว้ตอนแรกออก */
   }
 
-  /* ปรับขนาดตัวอักษรและโลโก้ตามเดิม */
+  body {
+    padding: 10px; /* ลด padding รอบนอกของ body */
+  }
+
+  /* ลบการปรับขนาดตัวอักษรและอื่นๆ ออก เพราะ .app:scale จะจัดการทั้งหมด */
+  .app{ height:86vh; }
   .logo-bubble{ width:80px; height:80px; top:16px; }
   .logo-bubble img{ width:56px; }
   .h-title{ font-size:18px; }
   .h-sub{ font-size:14px; }
+  .card{ inset:8px; }
 }
 
 /* prevent image selection dragging artifacts */
 .card-img, .logo-bubble img { -webkit-user-drag: none; user-drag: none; }
+
+/* --- Special CSS for Card 22 REMOVED --- */
+/* Card 18's style is carried over from last successful change */
+.card[data-id="18"] .card-img {
+  object-position: top;
+}
+
 </style>
 </head>
 <body>
   <div class="app" id="app">
+
+    <div class="card" data-id="22">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/22%20end.jpg" alt="Final Message" style="object-position: top;">
+      <div class="card-content">
+        <div class="h-title">ขอบคุณที่อยู่ด้วยกันนะ 🌻</div>
+        <div class="h-sub">เค้าดีใจมากเลยที่ยังอยู่ด้วยกัน เค้ามีทำตัวไม่น่ารักกับเตงบ้าง งอแงบ้าง (เยอะ) แต่เตงก็ยังน่ารักกับเค้าเสมอเลย ขอบคุณที่อยู่ข้างๆ เค้า นะ ไปครับ เราจะเติบโตไปด้วยกัน 🤎</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="21">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/20exhibition.png" alt="ไปดูงานเจ">
+      <div class="card-content">
+        <div class="h-title">4 ตุลาคม 25 - ไปดูงานเจ</div>
+        <div class="h-sub">ไปดูงานของเจกัน แล้วก็กินอจิไซต่อกับพี่ชัยอีฟ</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="20">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/19accident.jpg" alt="เตงหกล้ม">
+      <div class="card-content">
+        <div class="h-title">14 กันยา 25 - เตงหกล้ม</div>
+        <div class="h-sub">ตกใจมาก ยังดีที่ไม่เป็นไร หมอคอนเฟิร์มกระโหลกหนาจริงครับ</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="19">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/18german.png" alt="เรียนเยอรมัน">
+      <div class="card-content">
+        <div class="h-title">20 กรกฎา 25 - เรียนเยอรมัน</div>
+        <div class="h-sub">เทศกาลเรียนหนังสือทุกเสาร์</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="18">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/17donation.jpg" alt="ทำบุญวันเกิดมูลนิธิกระจกเงา" style="object-position: top;">
+      <div class="card-content">
+        <div class="h-title">11 กรกฎา 25 - ทำบุญวันเกิดมูลนิธิกระจกเงา</div>
+        <div class="h-sub">เอาของไปบริจาคกัน ช่วงนั้นน่าจะเป็นเทศกาล เคลียร์ห้อง จัดห้อง ที่เค้าไปหาเตง</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="17">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/16birthdayadvance.png" alt="สุขสันต์วันเกิดล่วงหน้า">
+      <div class="card-content">
+        <div class="h-title">21 มิถุนา 25 - สุขสันต์วันเกิดล่วงหน้า</div>
+        <div class="h-sub">เป็นการเซอร์ไพร์สที่งงตั้งแต่เจ้าของวันเกิด คนต้นคิดและผองเพื่อน โป๊ะสุด</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="16">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/15leoyoyo.jpg" alt="เจอ โยโย่ ลีโอ ไอรดา">
+      <div class="card-content">
+        <div class="h-title">20 มิถุนา 25 - เจอ โยโย่ ลีโอ ไอรดา</div>
+        <div class="h-sub">ไปเที่ยวกับเพื่อนๆ เตงอีกแล้ว ตำนานสวยทะลุสตอรี่ รุ่นพี่เค้าถึงกับทัก 🤣</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="15">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/14pray.jpg" alt="ไหว้พระขอพร">
+      <div class="card-content">
+        <div class="h-title">25 พฤษภา 25 - ไหว้พระขอพร</div>
+        <div class="h-sub">ช่วงเปลี่ยนผ่านงานไปไหว้พระเสริมดวงกัน</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="14">
+      <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/13hospital.png" alt="ป่วยบ่อย">
+      <div class="card-content">
+        <div class="h-title">7 พฤษภา 25 - ผ่านม</div>
+        <div class="h-sub">ช่วงนี้เตงป่วยบ่อย ไปรพ. กันเกือบทุกอาทิตย์เลย แต่ปัจจุบันแข็งแรงขึ้นเยอะแล้ว เย้เย้</div>
+      </div>
+    </div>
 
     <div class="card" data-id="13">
       <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/12khaoyai.jpg" alt="Khaoyai">
@@ -176,7 +264,7 @@ body{
     <div class="card" data-id="11">
       <img class="card-img" src="https://raw.githubusercontent.com/thitimek/hellonicha/refs/heads/main/images/10bookfair.jpg" alt="Book Fair">
       <div class="card-content">
-        <div class="h-title">29 มีนาคม 25 - ไปงานหนังสือ พบเจอพี่ชัยอีฟ  และไปสปา</div>
+        <div class="h-title">29 มีนาคม 25 - ไปงานหนังสือ พบเจอพี่ชัยอีฟ และไปสปา</div>
         <div class="h-sub">เขียนการ์ดแผ่นดินไหวให้เตงง่ะ แล้วก็ไปงานหนังสือกัน หลังจากนั้นก็ไปสปาในตำนาน 555</div>
       </div>
     </div>
@@ -261,7 +349,7 @@ body{
         <div class="h-title" style="margin-top:120px;">
           Happy 1st Anniversary 💛<br>สวัสดีครับ คุณณิชา<br>จำได้มั้ยครับเราเจอกันที่ไหน?
         </div>
-        <div class="h-sub" style="margin-top:10px;">เป็นเวลาหนึ่งปีแล้วนะที่ได้ใช้เวลาร่วมกันมา ดีจังเลยนะที่ได้อยู่ด้วยกัน</div>
+        <div class="h-sub" style="margin-top:10px;">เป็นเวลาหนึ่งปีแล้วนะที่ได้ใช้เวลาร่วมกันมา<br>ดีจังเลยนะที่ได้อยู่ด้วยกัน</div>
       </div>
     </div>
 
@@ -270,8 +358,6 @@ body{
 <script>
 /*
   Swipe + fade-in stacking logic
-  - **หมายเหตุ:** โค้ดนี้เป็นโค้ดเดิมที่คุณส่งมา ซึ่งไม่มีการ์ด 22 และการควบคุมการเด้งกลับของการ์ดสุดท้าย
-  - หากต้องการให้ Card 13 (การ์ดล่างสุดปัจจุบัน) เด้งกลับเมื่อปัด ให้ใช้โค้ดชุดก่อนหน้าที่มีการตรวจสอบ Card 22 และเปลี่ยนเป็น Card 13 แทน
 */
 
 const app = document.getElementById('app');
@@ -328,10 +414,7 @@ function bindTopCard(){
 
   let pointerId = null;
   let startX = 0, startY = 0, startTime = 0;
-
-  // *** ถ้าต้องการให้การ์ดสุดท้าย (Card 13) เด้งกลับ ให้ uncomment 3 บรรทัดนี้ และเปลี่ยนเป็น top.dataset.id === "13" ***
-  // const isFinalCard = top.dataset.id === "13"; 
-  const isFinalCard = false; // ใช้ค่าเดิมที่ไม่มีการ์ดสุดท้ายพิเศษ
+  const isFinalCard = top.dataset.id === "22"; // Check if it's the final card
 
   function onDown(e){
     // only primary pointer
@@ -349,6 +432,7 @@ function bindTopCard(){
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
     const rot = dx / 14;
+    // Apply movement for all cards, including the final one
     top.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
   }
 
@@ -365,12 +449,14 @@ function bindTopCard(){
 
     top.style.transition = 'transform 320ms cubic-bezier(.22,.9,.28,1), opacity 260ms linear';
 
-    // *** ตรรกะเด้งกลับของการ์ดสุดท้าย ***
+    // === LOGIC FOR FINAL CARD (Snap back) ===
     if (isFinalCard) {
+      // If it's the final card, always snap back, never remove
       top.style.transform = 'translate(0px,0px) rotate(0deg)';
       return;
     }
 
+    // Original logic for all other cards (1-21)
     if(absDx > threshold || Math.abs(vx) > velocityThreshold){
       const dir = dx > 0 ? 1 : -1;
       const flyX = dir * (window.innerWidth + 500);
@@ -402,23 +488,22 @@ function bindTopCard(){
 restack();
 bindTopCard();
 
-// keyboard support
+// keyboard support (Prevent keyboard removal for the final card)
 window.addEventListener('keydown', (e)=>{
   if(e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
     const cards = nodeListToArray();
     const top = cards[cards.length - 1];
     if(!top) return;
-    
-    // *** ตรรกะเด้งกลับของการ์ดสุดท้าย ***
-    // const isFinalCard = top.dataset.id === "13"; // *** ถ้าต้องการให้ Card 13 เด้งกลับ ***
-    const isFinalCard = false; // ใช้ค่าเดิมที่ไม่มีการ์ดสุดท้ายพิเศษ
+    const isFinalCard = top.dataset.id === "22";
 
     if (isFinalCard) {
-        top.style.transition = 'transform 320ms cubic-bezier(.22,.9,.28,1), opacity 260ms linear';
-        top.style.transform = 'translate(0px,0px) rotate(0deg)';
-        return; 
+      // For the final card, force snap back instead of removal
+      top.style.transition = 'transform 320ms cubic-bezier(.22,.9,.28,1), opacity 260ms linear';
+      top.style.transform = 'translate(0px,0px) rotate(0deg)';
+      return; 
     }
-
+    
+    // Logic for other cards
     const dir = e.key === 'ArrowRight' ? 1 : -1;
     top.style.transition = 'transform 320ms cubic-bezier(.22,.9,.28,1), opacity 260ms linear';
     const flyX = dir * (window.innerWidth + 500);
