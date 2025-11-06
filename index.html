@@ -22,7 +22,8 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px;
+  /* [แก้ไข] ลบ padding แนวตั้ง (20px) เพื่อไม่ให้เกิด overflow แต่เก็บ padding แนวนอน 20px ไว้ */
+  padding:0 20px; 
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
@@ -31,11 +32,11 @@ body{
 .app{
   width:90%;
   max-width:var(--max-width);
-  height:85vh;
+  /* [ปรับปรุง] เพิ่ม height เป็น 90vh เพราะไม่มี body padding รบกวนแล้ว */
+  height:90vh; 
   max-height:900px;
   position:relative;
   margin:auto;
-  /* [แก้ไข] นำ padding แนวตั้งออกเพื่อให้ body จัดกึ่งกลางได้สมบูรณ์ */
   padding: 0 10px;
   display:flex;
   justify-content:center;
@@ -350,7 +351,7 @@ body{
 
 const app = document.getElementById('app');
 
-// *** [NEW] ตรวจสอบขนาดหน้าจอเพื่อกำหนด scale factor ***
+// *** ตรวจสอบขนาดหน้าจอเพื่อกำหนด scale factor ***
 const isIphoneMini = window.matchMedia('(max-width: 375px)').matches;
 const scaleFactor = isIphoneMini ? 0.88 : 1;
 const scaleStack1 = scaleFactor * 0.96;
